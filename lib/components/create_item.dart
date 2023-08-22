@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo/components/select_priority.dart';
 import 'package:flutter_todo/components/widgets.dart';
 import 'package:flutter_todo/realm/realm_services.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +28,13 @@ class CreateItemForm extends StatefulWidget {
 class _CreateItemFormState extends State<CreateItemForm> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _itemEditingController;
+  int _priority = PriorityLevel.low;
+
+  void _setPriority(int priority) {
+    setState(() {
+      _priority = priority;
+    });
+  }
 
   @override
   void initState() {
@@ -54,16 +62,20 @@ class _CreateItemFormState extends State<CreateItemForm> {
               Text("Create a new item", style: theme.headline6),
               TextFormField(
                 controller: _itemEditingController,
-                validator: (value) => (value ?? "").isEmpty ? "Please enter some text" : null,
+                validator: (value) =>
+                    (value ?? "").isEmpty ? "Please enter some text" : null,
               ),
+              SelectPriority(_priority, _setPriority),
               Padding(
                 padding: const EdgeInsets.only(top: 15),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     cancelButton(context),
-                    Consumer<RealmServices>(builder: (context, realmServices, child) {
-                      return okButton(context, "Create", onPressed: () => save(realmServices, context));
+                    Consumer<RealmServices>(
+                        builder: (context, realmServices, child) {
+                      return okButton(context, "Create",
+                          onPressed: () => save(realmServices, context));
                     }),
                   ],
                 ),
@@ -76,7 +88,7 @@ class _CreateItemFormState extends State<CreateItemForm> {
   void save(RealmServices realmServices, BuildContext context) {
     if (_formKey.currentState!.validate()) {
       final summary = _itemEditingController.text;
-      realmServices.createItem(summary, false);
+      realmServices.createItem(summary, false, _priority);
       Navigator.pop(context);
     }
   }
