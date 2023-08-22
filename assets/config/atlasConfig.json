@@ -1,0 +1,9 @@
+{
+    "appId": "flutter-todo-app-2023-bjbxe",
+    "appUrl": "https://realm.mongodb.com/groups/64e40cb68cbc7275dfb5be40/apps/64e410d46dbb75dc677876d5",
+    "baseUrl": "https://realm.mongodb.com",
+    "clientApiBaseUrl": "https://eu-west-2.aws.realm.mongodb.com",
+    "dataApiBaseUrl": "https://eu-west-2.aws.data.mongodb-api.com",
+    "dataExplorerLink": "https://cloud.mongodb.com/links/64e40cb68cbc7275dfb5be40/explorer/Main/database/collection/find",
+    "dataSourceName": "mongodb-atlas"
+}
